@@ -8,9 +8,11 @@ const App = () => {
    const insert = src =>{
      axios.post(URL+".json",{src})
      .then(d=>d.data)
+     
      .then(d=>{
         console.log(" Your Res Data ",d)
         setloading(false)
+        seta([...a, { src }]);
     })
     .catch(e=>console.log("Error Somthing", e))
     //     console.log("finally Data",d)
@@ -37,8 +39,8 @@ const App = () => {
     .then(d=>{
         console.log("Your output Data ",d)
         let temp = []
-        let x = Object.keys[d]
-        let y = Object.values[d]
+        let x = Object.keys(d)
+        let y = Object.values(d)
         for (let i=0; i < x.length; i++) {
             temp.push({ id: x[i],...y[i] })
         }
