@@ -20,18 +20,21 @@ const App = () => {
     //  })
    }
 
-   const handleChange = (e) =>{
-    setloading(true)
+   const handleChange = async e => {
+        setloading(true)
+        let temp =[]
+        for(let i=0; i < e.target.files.length;i++){
+        let r = await createImage(e.target.files[i],i)
+        }
+   }
+   const createImage = (file, index) => {
     let fr = new FileReader()
-    let file = e.target.files[0]
-
-    fr.onload= () =>{
-        insert(fr.result)
-    }
+    fr.onload = () =>insert(fr.result)
     if(file){
         return fr.readAsDataURL(file)
     }
    }
+
    const boot = () =>{
     axios.get(URL+".json")
     .then(res=>res.data)
@@ -54,7 +57,7 @@ const App = () => {
   return (
     <div>   
        <h1>Upload Imagess</h1>
-       <input type="file" onChange={handleChange} />
+       <input type="file" multiple={true} onChange={handleChange} />
        <h2>{loading? "uploading...." : "uploading done"}</h2>
         {a?.map(x=><img src={x.src} width={100} height={100} />)}
     </div>
